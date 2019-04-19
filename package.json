@@ -1,0 +1,29 @@
+{
+  "name": "bedard-minx",
+  "version": "0.1.0",
+  "main": "dist/bedard-minx.cjs.js",
+  "module": "dist/bedard-minx.esm.js",
+  "browser": "dist/bedard-minx.umd.js",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/jest": "^24.0.11",
+    "jest": "^24.7.1",
+    "rollup": "^1.0.0",
+    "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-node-resolve": "^4.0.0",
+    "rollup-plugin-typescript2": "^0.20.1",
+    "ts-jest": "^24.0.2",
+    "ts-node": "^8.1.0",
+    "tslib": "^1.9.3",
+    "typescript": "^3.4.4"
+  },
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "test": "jest --coverage",
+    "pretest": "npm run build"
+  },
+  "files": [
+    "dist"
+  ]
+}
