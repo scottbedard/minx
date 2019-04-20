@@ -66,13 +66,10 @@ export function shift(ring: any[], rotation: Rotation): any[] {
         return ring.slice(-doubleRotationAmount).concat(
             ring.slice(0, ring.length - doubleRotationAmount)
         );
-    }
-    
-    if (rotation === '--') {
+    } else {
+        // rotation === '--'
         return ring.slice(doubleRotationAmount).concat(
             ring.slice(0, doubleRotationAmount)
         );
     }
-
-    throw new Error(`Invalid rotation. Expected +, ++, -, or --, but received "${rotation}".`);
 }
