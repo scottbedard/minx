@@ -45,31 +45,10 @@ export function shift(ring: any[], rotation: Rotation): any[] {
         return ring.slice(0);
     }
 
-    const rotationAmount = ring.length / 5;
+    const clockwise = rotation === '+' || rotation === '++';
+    const rotationAmount = (ring.length / 5) * rotation.length;
+    const start = clockwise ? rotationAmount * -1 : rotationAmount;
+    const end = clockwise ? ring.length - rotationAmount : rotationAmount;
 
-    // otherwise shift the ring by 1/5 per rotation
-    if (rotation === '+') {
-        return ring.slice(-rotationAmount).concat(
-            ring.slice(0, ring.length - rotationAmount)
-        );
-    }
-    
-    if (rotation === '-') {
-        return ring.slice(rotationAmount).concat(
-            ring.slice(0, rotationAmount)
-        );
-    }
-
-    const doubleRotationAmount = rotationAmount * 2;
-
-    if (rotation === '++') {
-        return ring.slice(-doubleRotationAmount).concat(
-            ring.slice(0, ring.length - doubleRotationAmount)
-        );
-    } else {
-        // rotation === '--'
-        return ring.slice(doubleRotationAmount).concat(
-            ring.slice(0, doubleRotationAmount)
-        );
-    }
+    return ring.slice(start).concat(ring.slice(0, end));
 }
