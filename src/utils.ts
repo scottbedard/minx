@@ -1,4 +1,5 @@
-import { Rotation } from './types';
+import { MinxState, Rotation } from './types';
+import Minx from './minx';
 
 /**
  * Seperate a face of values into an array of rings.
@@ -29,6 +30,31 @@ export function chunk(layers: number, face: any[]): number[] {
     }
 
     return rings;
+}
+
+/**
+ * Create the sticker values for a puzzle.
+ *
+ * @return void
+ */
+export function createState(minx: Minx): MinxState
+{
+    console.log(minx);
+    
+    return {
+        U: [],
+        F: [],
+        L: [],
+        BL: [],
+        BR: [],
+        R: [],
+        D: [],
+        B: [],
+        DBL: [],
+        DL: [],
+        DR: [],
+        DBR: [],
+    }
 }
 
 /**
