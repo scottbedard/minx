@@ -24,10 +24,11 @@ export type MinxState = {
 };
 
 /**
- * Rotation quantifier.
+ * Rotation.
  * 
- * One '+' indicates a single clockwise turn, while '++'
- * indicate a double clockwise turn. Similarly, '-' and
- * '--' indicate single and double counter-clockwise turns.
+ * -2 = twice counter-clockwise
+ * -1 = once counter-clockwise
+ * 1  = once clockwise
+ * 2  = twice clockwise
  */
-export type Rotation = '+' | '++' | '-' | '--';
+export type Rotation = -2 | -1 | 1 | 2;

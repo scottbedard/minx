@@ -8,7 +8,7 @@ import Minx from './minx';
  * @param   {Array<any>}        face
  * @return  {Array<any[]>}
  */
-export function chunk(layers: number, face: any[]): number[] {
+export function chunk(layers: number, face: any[]): Array<any[]> {
     const rings: any[] = [];
     const clonedFace = face.slice(0);
     
@@ -37,10 +37,7 @@ export function chunk(layers: number, face: any[]): number[] {
  *
  * @return void
  */
-export function createState(minx: Minx): MinxState
-{
-    console.log(minx);
-    
+export function createState(minx: Minx): MinxState {
     return {
         U: [],
         F: [],
@@ -58,11 +55,25 @@ export function createState(minx: Minx): MinxState
 }
 
 /**
+ * Rotate a face array.
+ *
+ * @param   {number}    layers      size of the face
+ * @param   {any[]}     face        array of face values
+ * @param   {Rotation}  rotation    -2, -1, 1, or 2
+ * @return  {any[]}
+ */
+export function rotateFace(layers: number, face: any[], rotation: Rotation): any[] {
+    return chunk(layers, face)
+        .map(ring => shift(ring, rotation))
+        .flat(1);
+}
+
+/**
  * Shift a face ring clockwise or counter clockwise.
  *
  * @param   {any[]}     ring
  * @param   {Rotation}  rotation
- * @param ring 
+ * @param   {any[]} 
  */
 export function shift(ring: any[], rotation: Rotation): any[] {
     // center pieces do not move, so we'll simply
@@ -71,8 +82,8 @@ export function shift(ring: any[], rotation: Rotation): any[] {
         return ring.slice(0);
     }
 
-    const clockwise = rotation === '+' || rotation === '++';
-    const rotationAmount = (ring.length / 5) * rotation.length;
+    const clockwise = rotation > 0;
+    const rotationAmount = (ring.length / 5) * Math.abs(rotation);
     const start = clockwise ? rotationAmount * -1 : rotationAmount;
     const end = clockwise ? ring.length - rotationAmount : rotationAmount;
 

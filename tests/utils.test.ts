@@ -1,4 +1,8 @@
-import { chunk, shift } from '../src/utils';
+import {
+    chunk,
+    rotateFace,
+    shift,
+} from '../src/utils';
 
 describe('util functions', () => {
     // quick helper function to generate index arrays
@@ -43,25 +47,48 @@ describe('util functions', () => {
         ]);
     });
 
+    it('rotateFace', () => {
+        // kilo
+        const kilo = arr(5);
+        expect(rotateFace(2, kilo, 1)).toEqual([4, 0, 1, 2, 3]);
+        expect(rotateFace(2, kilo, 2)).toEqual([3, 4, 0, 1, 2]);
+        expect(rotateFace(2, kilo, -1)).toEqual([1, 2, 3, 4, 0]);
+        expect(rotateFace(2, kilo, -2)).toEqual([2, 3, 4, 0, 1]);
+
+        // mega
+        const mega = arr(11);
+        expect(rotateFace(3, mega, 1)).toEqual([0, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8]);
+        expect(rotateFace(3, mega, 2)).toEqual([0, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6]);
+        expect(rotateFace(3, mega, -1)).toEqual([0, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2]);
+        expect(rotateFace(3, mega, -2)).toEqual([0, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4]);
+
+        // master kilo
+        const masterKilo = arr(20);
+        expect(rotateFace(4, masterKilo, 1)).toEqual([4, 0, 1, 2, 3, 17, 18, 19, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]);
+        expect(rotateFace(4, masterKilo, 2)).toEqual([3, 4, 0, 1, 2, 14, 15, 16, 17, 18, 19, 5, 6, 7, 8, 9, 10, 11, 12, 13]);
+        expect(rotateFace(4, masterKilo, -1)).toEqual([1, 2, 3, 4, 0, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 5, 6, 7]);
+        expect(rotateFace(4, masterKilo, -2)).toEqual([2, 3, 4, 0, 1, 11, 12, 13, 14, 15, 16, 17, 18, 19, 5, 6, 7, 8, 9, 10]);
+    });
+
     it('shift', () => {
         // center piece rings should not be changed
-        expect(shift([0], '+')).toEqual([0]);
-        expect(shift([0], '++')).toEqual([0]);
-        expect(shift([0], '-')).toEqual([0]);
-        expect(shift([0], '--')).toEqual([0]);
+        expect(shift([0], 1)).toEqual([0]);
+        expect(shift([0], 2)).toEqual([0]);
+        expect(shift([0], -1)).toEqual([0]);
+        expect(shift([0], -2)).toEqual([0]);
 
         // even layered rings
         const kilo = [0, 1, 2, 3, 4];
-        expect(shift(kilo, '+')).toEqual([4, 0, 1, 2, 3]);
-        expect(shift(kilo, '++')).toEqual([3, 4, 0, 1, 2]);
-        expect(shift(kilo, '-')).toEqual([1, 2, 3, 4, 0]);
-        expect(shift(kilo, '--')).toEqual([2, 3, 4, 0, 1]);
+        expect(shift(kilo, 1)).toEqual([4, 0, 1, 2, 3]);
+        expect(shift(kilo, 2)).toEqual([3, 4, 0, 1, 2]);
+        expect(shift(kilo, -1)).toEqual([1, 2, 3, 4, 0]);
+        expect(shift(kilo, -2)).toEqual([2, 3, 4, 0, 1]);
 
         // odd layered rings
         const mega = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        expect(shift(mega, '+')).toEqual([9, 10, 1, 2, 3, 4, 5, 6, 7, 8]);
-        expect(shift(mega, '++')).toEqual([7, 8, 9, 10, 1, 2, 3, 4, 5, 6]);
-        expect(shift(mega, '-')).toEqual([3, 4, 5, 6, 7, 8, 9, 10, 1, 2]);
-        expect(shift(mega, '--')).toEqual([5, 6, 7, 8, 9, 10, 1, 2, 3, 4]);
+        expect(shift(mega, 1)).toEqual([9, 10, 1, 2, 3, 4, 5, 6, 7, 8]);
+        expect(shift(mega, 2)).toEqual([7, 8, 9, 10, 1, 2, 3, 4, 5, 6]);
+        expect(shift(mega, -1)).toEqual([3, 4, 5, 6, 7, 8, 9, 10, 1, 2]);
+        expect(shift(mega, -2)).toEqual([5, 6, 7, 8, 9, 10, 1, 2, 3, 4]);
     });
 });
