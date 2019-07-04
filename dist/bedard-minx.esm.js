@@ -42,7 +42,7 @@ class Minx {
         this.layers = layers;
         this.options = options;
         // create initial state
-        this.state = createState(this);
+        this.state = createState();
     }
 }
 
