@@ -101,7 +101,7 @@ export function shift(ring: any[], rotation: Rotation): any[] {
 export function slice(layers: number, face: any[], turnDepth: number): any[] {
     const rings = chunk(layers, face);
 
-    return rings.reduce<any[]>((acc, ring, index) => {
+    return rings.reduce((acc, ring, index) => {
         // calculate the depth from the outer-most ring
         const ringDepth = rings.length - index;
         const depthOffset = turnDepth - ringDepth;
@@ -118,9 +118,7 @@ export function slice(layers: number, face: any[], turnDepth: number): any[] {
         if (ringDepth === turnDepth) {
             const end = lowerRightCornerOffset + innerOffset + 1;
 
-            return acc.concat(
-                ...ring.slice(lowerRightCornerOffset, end)
-            );
+            return acc.concat(ring.slice(lowerRightCornerOffset, end));
         }
 
         // if the ringDepth less than turnDepth, extract intersections
