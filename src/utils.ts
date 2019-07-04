@@ -89,3 +89,48 @@ export function shift(ring: any[], rotation: Rotation): any[] {
 
     return ring.slice(start).concat(ring.slice(0, end));
 }
+
+/**
+ * Extract a slice from a face.
+ *
+ * @param   {number}    layers
+ * @param   {any[]}     face 
+ * @param   {number}    turnDepth
+ * @return  {any[]}
+ */
+export function slice(layers: number, face: any[], turnDepth: number): any[] {
+    const rings = chunk(layers, face);
+
+    return rings.reduce<any[]>((acc, ring, index) => {
+        // calculate the depth from the outer-most ring
+        const ringDepth = rings.length - index;
+        const depthOffset = turnDepth - ringDepth;
+
+        // number of positions between corners of this ring
+        const innerOffset = Math.floor(ring.length / 5);
+
+        // offset from start of ring to the lower right corner
+        // of the ring. we use this as a starting point to
+        // calculate where to slice our ring arrays from
+        const lowerRightCornerOffset = innerOffset * 2;
+
+        // if ring depth equals turn depth, extract bottom slice
+        if (ringDepth === turnDepth) {
+            const end = lowerRightCornerOffset + innerOffset + 1;
+
+            return acc.concat(
+                ...ring.slice(lowerRightCornerOffset, end)
+            );
+        }
+
+        // if the ringDepth less than turnDepth, extract intersections
+        if (ringDepth < turnDepth) {
+            const leadingOffset = lowerRightCornerOffset - depthOffset;
+            const trailingOffset = leadingOffset + depthOffset + innerOffset + depthOffset;
+
+            return acc.concat(ring[leadingOffset], ring[trailingOffset]);
+        }
+
+        return acc;
+    }, []);
+}

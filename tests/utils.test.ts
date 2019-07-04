@@ -2,6 +2,7 @@ import {
     chunk,
     rotateFace,
     shift,
+    slice,
 } from '../src/utils';
 
 describe('util functions', () => {
@@ -90,5 +91,51 @@ describe('util functions', () => {
         expect(shift(mega, 2)).toEqual([7, 8, 9, 10, 1, 2, 3, 4, 5, 6]);
         expect(shift(mega, -1)).toEqual([3, 4, 5, 6, 7, 8, 9, 10, 1, 2]);
         expect(shift(mega, -2)).toEqual([5, 6, 7, 8, 9, 10, 1, 2, 3, 4]);
+    });
+
+    it('slice', () => {
+        // 2
+        const minx2 = arr(5);
+        expect(slice(2, minx2, 1)).toEqual([2, 3]);
+
+        // 3
+        const minx3 = arr(11);
+        expect(slice(3, minx3, 1)).toEqual([5, 6, 7]);
+
+        // 4
+        const minx4 = arr(20);
+        expect(slice(4, minx4, 1)).toEqual([11, 12, 13, 14]);
+        expect(slice(4, minx4, 2)).toEqual([2, 3, 10, 15]);
+
+        // 5
+        const minx5 = arr(31);
+        expect(slice(5, minx5, 1)).toEqual([19, 20, 21, 22, 23]);
+        expect(slice(5, minx5, 2)).toEqual([5, 6, 7, 18, 24]);
+
+        // 6
+        const minx6 = arr(45);
+        expect(slice(6, minx6, 1)).toEqual([30, 31, 32, 33, 34, 35]);
+        expect(slice(6, minx6, 2)).toEqual([11, 12, 13, 14, 29, 36]);
+        expect(slice(6, minx6, 3)).toEqual([2, 3, 10, 15, 28, 37]);
+
+        // 7
+        const minx7 = arr(61);
+        expect(slice(7, minx7, 1)).toEqual([43, 44, 45, 46, 47, 48, 49]);
+        expect(slice(7, minx7, 2)).toEqual([19, 20, 21, 22, 23, 42, 50]);
+        expect(slice(7, minx7, 3)).toEqual([5, 6, 7, 18, 24, 41, 51]);
+
+        // 8
+        const minx8 = arr(80);
+        expect(slice(8, minx8, 1)).toEqual([59, 60, 61, 62, 63, 64, 65, 66]);
+        expect(slice(8, minx8, 2)).toEqual([30, 31, 32, 33, 34, 35, 58, 67]);
+        expect(slice(8, minx8, 3)).toEqual([11, 12, 13, 14, 29, 36, 57, 68]);
+        expect(slice(8, minx8, 4)).toEqual([2, 3, 10, 15, 28, 37, 56, 69]);
+
+        // 9
+        const minx9 = arr(101);
+        expect(slice(9, minx9, 1)).toEqual([77, 78, 79, 80, 81, 82, 83, 84, 85]);
+        expect(slice(9, minx9, 2)).toEqual([43, 44, 45, 46, 47, 48, 49, 76, 86]);
+        expect(slice(9, minx9, 3)).toEqual([19, 20, 21, 22, 23, 42, 50, 75, 87]);
+        expect(slice(9, minx9, 4)).toEqual([5, 6, 7, 18, 24, 41, 51, 74, 88]);
     });
 });
