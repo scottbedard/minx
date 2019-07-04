@@ -91,14 +91,15 @@ export function shift(ring: any[], rotation: Rotation): any[] {
 }
 
 /**
- * Extract a slice from a face.
+ * Extract a slice from a face by depth and rotation angle.
  *
  * @param   {number}    layers
  * @param   {any[]}     face 
  * @param   {number}    turnDepth
+ * @param   {number}    angle
  * @return  {any[]}
  */
-export function slice(layers: number, face: any[], turnDepth: number): any[] {
+export function slice(layers: number, face: any[], turnDepth: number, angle: number = 0): any[] {
     const rings = chunk(layers, face);
 
     return rings.reduce((acc, ring, index) => {
