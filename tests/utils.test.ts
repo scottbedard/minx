@@ -14,6 +14,26 @@ describe('util functions', () => {
         return new Array(len).fill(null).map((_: void, i: number) => i);
     }
 
+    let minx2: any[],
+        minx3: any[],
+        minx4: any[],
+        minx5: any[],
+        minx6: any[],
+        minx7: any[],
+        minx8: any[],
+        minx9: any[];
+
+    beforeEach(() => {
+        minx2 = arr(5);
+        minx3 = arr(11);
+        minx4 = arr(20);
+        minx5 = arr(31);
+        minx6 = arr(45);
+        minx7 = arr(61);
+        minx8 = arr(80);
+        minx9 = arr(101);
+    });
+
     it('chunk', () => {
         // kilominx
         const kilo = arr(5);
@@ -94,55 +114,61 @@ describe('util functions', () => {
     });
 
     describe('slice (angles)', () => {
-        // ...
+        const minx8 = arr(80);
+
+        it('-2', () => {
+            expect(slice(8, minx8, 1, -2)).toEqual([73, 74, 75, 76, 77, 78, 79, 45]);
+        });
+
+        it('-1', () => {
+            expect(slice(8, minx8, 1, -1)).toEqual([66, 67, 68, 69, 70, 71, 72, 73]);
+        });
+
+        it('0', () => {
+            expect(slice(8, minx8, 1, 0)).toEqual([59, 60, 61, 62, 63, 64, 65, 66]);
+        });
+
+        it('1', () => {
+            expect(slice(8, minx8, 1, 1)).toEqual([52, 53, 54, 55, 56, 57, 58, 59]);
+        });
+
+        it('2', () => {
+            expect(slice(8, minx8, 1, 2)).toEqual([45, 46, 47, 48, 49, 50, 51, 52]);
+        });
     });
 
     describe('slice (sizes)', () => {
         it('2', () => {
-            const minx2 = arr(5);
-
             expect(slice(2, minx2, 1)).toEqual([2, 3]);
         });
 
         it('3', () => {
-            const minx3 = arr(11);
-
             expect(slice(3, minx3, 1)).toEqual([5, 6, 7]);
         });
 
         it('4', () => {
-            const minx4 = arr(20);
-
             expect(slice(4, minx4, 1)).toEqual([11, 12, 13, 14]);
             expect(slice(4, minx4, 2)).toEqual([2, 3, 10, 15]);
         });
 
         it('5', () => {
-            const minx5 = arr(31);
-
             expect(slice(5, minx5, 1)).toEqual([19, 20, 21, 22, 23]);
             expect(slice(5, minx5, 2)).toEqual([5, 6, 7, 18, 24]);
         });
 
         it('6', () => {
-            const minx6 = arr(45);
-
             expect(slice(6, minx6, 1)).toEqual([30, 31, 32, 33, 34, 35]);
             expect(slice(6, minx6, 2)).toEqual([11, 12, 13, 14, 29, 36]);
             expect(slice(6, minx6, 3)).toEqual([2, 3, 10, 15, 28, 37]);
         });
 
         it('7', () => {
-            const minx7 = arr(61);
-
             expect(slice(7, minx7, 1)).toEqual([43, 44, 45, 46, 47, 48, 49]);
             expect(slice(7, minx7, 2)).toEqual([19, 20, 21, 22, 23, 42, 50]);
             expect(slice(7, minx7, 3)).toEqual([5, 6, 7, 18, 24, 41, 51]);
         });
 
         it('8', () => {
-            const minx8 = arr(80);
-
             expect(slice(8, minx8, 1)).toEqual([59, 60, 61, 62, 63, 64, 65, 66]);
             expect(slice(8, minx8, 2)).toEqual([30, 31, 32, 33, 34, 35, 58, 67]);
             expect(slice(8, minx8, 3)).toEqual([11, 12, 13, 14, 29, 36, 57, 68]);
@@ -150,8 +176,6 @@ describe('util functions', () => {
         });
 
         it('9', () => {
-            const minx9 = arr(101);
-
             expect(slice(9, minx9, 1)).toEqual([77, 78, 79, 80, 81, 82, 83, 84, 85]);
             expect(slice(9, minx9, 2)).toEqual([43, 44, 45, 46, 47, 48, 49, 76, 86]);
             expect(slice(9, minx9, 3)).toEqual([19, 20, 21, 22, 23, 42, 50, 75, 87]);

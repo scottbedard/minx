@@ -63,6 +63,10 @@ export function createState(minx: Minx): MinxState {
  * @return  {any[]}
  */
 export function rotateFace(layers: number, face: any[], rotation: Rotation): any[] {
+    if (rotation === 0) {
+        return face.slice(0);
+    }
+
     return chunk(layers, face)
         .map(ring => shift(ring, rotation))
         .flat(1);
@@ -76,9 +80,9 @@ export function rotateFace(layers: number, face: any[], rotation: Rotation): any
  * @param   {any[]} 
  */
 export function shift(ring: any[], rotation: Rotation): any[] {
-    // center pieces do not move, so we'll simply
-    // clone the array and return it unchanged.
-    if (ring.length === 1) {
+    // do nothing if there is no rotation, or it's just
+    // a center piece since they don't change position
+    if (rotation === 0 || ring.length === 1) {
         return ring.slice(0);
     }
 
@@ -96,11 +100,11 @@ export function shift(ring: any[], rotation: Rotation): any[] {
  * @param   {number}    layers
  * @param   {any[]}     face 
  * @param   {number}    turnDepth
- * @param   {number}    angle
+ * @param   {Rotation}    rotation
  * @return  {any[]}
  */
-export function slice(layers: number, face: any[], turnDepth: number, angle: number = 0): any[] {
-    const rings = chunk(layers, face);
+export function slice(layers: number, face: any[], turnDepth: number, rotation: Rotation = 0): any[] {
+    const rings = chunk(layers, rotateFace(layers, face, rotation));
 
     return rings.reduce((acc, ring, index) => {
         // calculate the depth from the outer-most ring

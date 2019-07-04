@@ -31,4 +31,4 @@ export type MinxState = {
  * 1  = once clockwise
  * 2  = twice clockwise
  */
-export type Rotation = -2 | -1 | 1 | 2;
+export type Rotation = -2 | -1 | 0 | 1 | 2;
